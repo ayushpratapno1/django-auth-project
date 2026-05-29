@@ -10,10 +10,21 @@
 <body>
 
     <nav>
-        <a href="/">Home</a>
+
+    <a href="/">Home</a>
+
+    {% if user.is_authenticated %}
+
+        <a href="/logout/">Logout</a>
+
+    {% else %}
+
         <a href="/signup/">Signup</a>
         <a href="/login/">Login</a>
-    </nav>
+
+    {% endif %}
+
+</nav>
 
     <hr>
 
