@@ -4,6 +4,7 @@ from django.contrib.auth import logout
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from .forms import SignUpForm
+from .forms import ProfileForm
 
 
 # Create your views here.
@@ -66,4 +67,37 @@ def profile(request):
     return render(
         request,
         'profile.html'
+    )
+
+@login_required
+def edit_profile(request):
+
+    profile = request.user.profile
+
+    if request.method == 'POST':
+
+        form = ProfileForm(
+    request.POST,
+    request.FILES,
+    instance=profile
+        )
+
+        if form.is_valid():
+
+            form.save()
+
+            return redirect('profile')
+
+    else:
+
+        form = ProfileForm(
+            instance=profile
+        )
+
+    return render(
+        request,
+        'edit_profile.html',
+        {
+            'form': form
+        }
     )

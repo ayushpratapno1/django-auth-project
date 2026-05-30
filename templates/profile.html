@@ -6,7 +6,18 @@ Profile
 
 {% block content %}
 
+<a href="{% url 'edit_profile' %}">
+    Edit Profile
+</a>
+
 <h2>User Profile</h2>
+
+{% if user.profile.profile_picture %}
+    <img
+        src="{{ user.profile.profile_picture.url }}"
+        width="200"
+    >
+{% endif %}
 
 <p>
     Username:
@@ -16,6 +27,21 @@ Profile
 <p>
     Email:
     {{ user.email }}
+</p>
+
+<p>
+    Bio:
+    {{ user.profile.bio }}
+</p>
+
+<p>
+    GitHub:
+    {{ user.profile.github }}
+</p>
+
+<p>
+    LinkedIn:
+    {{ user.profile.linkedin }}
 </p>
 
 <p>

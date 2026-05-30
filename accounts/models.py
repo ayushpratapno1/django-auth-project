@@ -9,6 +9,12 @@ class Profile(models.Model):
         on_delete=models.CASCADE
     )
 
+    profile_picture = models.ImageField(
+    upload_to='profile_pictures/',
+    blank=True,
+    null=True
+    )
+
     bio = models.TextField(
         blank=True
     )
