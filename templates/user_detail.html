@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>User Details</h2>
+
+<p>
+Username:
+{{ selected_user.username }}
+</p>
+
+<p>
+Email:
+{{ selected_user.email }}
+</p>
+
+<p>
+Joined:
+{{ selected_user.date_joined }}
+</p>
+
+{% if selected_user.profile.profile_picture %}
+<img
+src="{{ selected_user.profile.profile_picture.url }}"
+width="200">
+{% endif %}
+
+<p>
+Bio:
+{{ selected_user.profile.bio }}
+</p>
+
+<p>
+Github:
+{{ selected_user.profile.github }}
+</p>
+
+<p>
+LinkedIn:
+{{ selected_user.profile.linkedin }}
+</p>
+
+{% endblock %}

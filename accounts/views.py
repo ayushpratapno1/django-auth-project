@@ -112,18 +112,47 @@ def dashboard(request):
         return HttpResponseForbidden(
             "You are not authorized."
         )
+    staff_users = User.objects.filter(is_staff=True).count()
+
+    active_users = User.objects.filter(is_active=True).count()
+
+    inactive_users = User.objects.filter(is_active=False).count()
 
     total_users = User.objects.count()
 
     total_profiles = Profile.objects.count()
 
+    users = User.objects.all().order_by('-date_joined')
+
     context = {
+        'staff_users': staff_users,
+'active_users': active_users,
+'inactive_users': inactive_users,
         'total_users': total_users,
         'total_profiles': total_profiles,
+        'users': users,
     }
 
     return render(
         request,
         'dashboard.html',
         context
+    )
+
+@login_required
+def user_detail(request, user_id):
+
+    if not request.user.is_staff:
+        return HttpResponseForbidden()
+
+    selected_user = User.objects.get(
+        id=user_id
+    )
+
+    return render(
+        request,
+        'user_detail.html',
+        {
+            'selected_user': selected_user
+        }
     )
