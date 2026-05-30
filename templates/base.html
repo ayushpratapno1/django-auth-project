@@ -15,17 +15,21 @@
 
     {% if user.is_authenticated %}
 
+        <a href="/profile/">Profile</a>
+
         <a href="/logout/">Logout</a>
 
     {% else %}
 
         <a href="/signup/">Signup</a>
+
         <a href="/login/">Login</a>
 
     {% endif %}
 
 </nav>
 
+<hr>
     <hr>
 
     {% block content %}
