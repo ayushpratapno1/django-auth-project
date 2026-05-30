@@ -11,25 +11,28 @@
 
     <nav>
 
-    <a href="/">Home</a>
+        <a href="/">Home</a>
 
-    {% if user.is_authenticated %}
+        {% if user.is_authenticated %}
 
         <a href="/profile/">Profile</a>
+        {% if user.is_staff %}
+        <a href="/dashboard/">Dashboard</a>
+        {% endif %}
 
         <a href="/logout/">Logout</a>
 
-    {% else %}
+        {% else %}
 
         <a href="/signup/">Signup</a>
 
         <a href="/login/">Login</a>
 
-    {% endif %}
+        {% endif %}
 
-</nav>
+    </nav>
 
-<hr>
+    <hr>
     <hr>
 
     {% block content %}

@@ -5,6 +5,9 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from .forms import SignUpForm
 from .forms import ProfileForm
+from .models import Profile
+from django.contrib.auth.models import User
+from django.http import HttpResponseForbidden
 
 
 # Create your views here.
@@ -100,4 +103,27 @@ def edit_profile(request):
         {
             'form': form
         }
+    )
+
+@login_required
+def dashboard(request):
+
+    if not request.user.is_staff:
+        return HttpResponseForbidden(
+            "You are not authorized."
+        )
+
+    total_users = User.objects.count()
+
+    total_profiles = Profile.objects.count()
+
+    context = {
+        'total_users': total_users,
+        'total_profiles': total_profiles,
+    }
+
+    return render(
+        request,
+        'dashboard.html',
+        context
     )
