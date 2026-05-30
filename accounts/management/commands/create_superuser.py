@@ -6,7 +6,6 @@ import os
 class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
-
         User = get_user_model()
 
         username = os.getenv("SUPERUSER_USERNAME")
@@ -21,10 +20,27 @@ class Command(BaseCommand):
             )
             return
 
-        if User.objects.filter(username=username).exists():
+        user = User.objects.filter(username=username).first()
+
+        if user:
+
+            if user.is_superuser:
+                self.stdout.write(
+                    self.style.SUCCESS(
+                        "Superuser already exists."
+                    )
+                )
+                return
+
+            user.is_staff = True
+            user.is_superuser = True
+            user.email = email
+            user.set_password(password)
+            user.save()
+
             self.stdout.write(
                 self.style.SUCCESS(
-                    "Superuser already exists."
+                    "Existing user promoted to superuser."
                 )
             )
             return
