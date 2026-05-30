@@ -1,0 +1,43 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{% block title %}Auth Project{% endblock %}</title>
+</head>
+
+<body>
+
+    <nav>
+
+        <a href="/">Home</a>
+
+        {% if user.is_authenticated %}
+
+        <a href="/profile/">Profile</a>
+        {% if user.is_staff %}
+        <a href="/dashboard/">Dashboard</a>
+        {% endif %}
+
+        <a href="/logout/">Logout</a>
+
+        {% else %}
+
+        <a href="/signup/">Signup</a>
+
+        <a href="/login/">Login</a>
+
+        {% endif %}
+
+    </nav>
+
+    <hr>
+    <hr>
+
+    {% block content %}
+    {% endblock %}
+
+</body>
+
+</html>

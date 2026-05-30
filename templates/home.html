@@ -1,11 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Auth Project</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-    <h1>Welcome to Authentication Project</h1>
+{% block title %}
+Home
+{% endblock %}
 
-</body>
-</html>
+{% block content %}
+
+<h1>Welcome to Authentication Project</h1>
+
+{% if user.is_authenticated %}
+
+    <h3>Welcome {{ user.username }}</h3>
+
+{% else %}
+
+    <h3>Welcome Guest</h3>
+
+{% endif %}
+
+{% endblock %}
