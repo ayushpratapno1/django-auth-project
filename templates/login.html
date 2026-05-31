@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+
 {% block title %}
 Login
 {% endblock %}
@@ -37,5 +38,20 @@ Login
     </button>
 
 </form>
+
+<hr>
+
+<h3>OR</h3>
+
+<a href="/accounts/google/login/">
+    Continue with Google
+</a>
+
+<p>
+    Don't have an account?
+    <a href="{% url 'signup' %}">
+        Sign Up
+    </a>
+</p>
 
 {% endblock %}
