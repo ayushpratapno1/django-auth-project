@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load socialaccount %}
+
 {% block title %}
 Signup
 {% endblock %}
@@ -19,5 +21,20 @@ Signup
     </button>
 
 </form>
+
+<hr>
+
+<h3>OR</h3>
+
+<a href="{% provider_login_url 'google' %}">
+    Continue with Google
+</a>
+
+<p>
+    Already have an account?
+    <a href="{% url 'login' %}">
+        Login
+    </a>
+</p>
 
 {% endblock %}
