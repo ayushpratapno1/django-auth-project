@@ -13,15 +13,17 @@ Profile
 <h2>User Profile</h2>
 
 {% if user.profile.profile_picture %}
-    <img
-        src="{{ user.profile.profile_picture.url }}"
-        width="200"
-    >
+<img src="{{ user.profile.profile_picture.url }}" width="200">
 {% endif %}
 
 <p>
     Username:
     {{ user.username }}
+</p>
+
+<p>
+    Name:
+    {{ user.first_name }} {{ user.last_name }}
 </p>
 
 <p>
