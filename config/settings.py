@@ -45,6 +45,9 @@ INSTALLED_APPS = [
 
     'django.contrib.sites',
 
+    'cloudinary',
+    'cloudinary_storage',
+
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -135,9 +138,14 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-MEDIA_URL = '/media/'
-
-MEDIA_ROOT = BASE_DIR / 'media'
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
 
 LOGIN_URL = 'login'
 SOCIALACCOUNT_LOGIN_ON_GET = True
@@ -160,3 +168,9 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
+}
