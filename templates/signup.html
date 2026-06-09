@@ -1,38 +1,66 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Signup
+Sign Up
 {% endblock %}
 
 {% block content %}
 
-<h2>Signup</h2>
+<div class="auth-container">
 
-<form method="POST">
+    <div class="auth-card">
 
-    {% csrf_token %}
+        <h1 class="auth-title">
+            Create Account 🚀
+        </h1>
 
-    {{ form.as_p }}
+        <p class="auth-subtitle">
+            Join the platform and get started
+        </p>
 
-    <button type="submit">
-        Sign Up
-    </button>
+        <form method="POST">
 
-</form>
+            {% csrf_token %}
 
-<hr>
+            <div class="signup-form">
 
-<h3>OR</h3>
+                {{ form.as_p }}
 
-<a href="/accounts/google/login/">
-    Continue with Google
-</a>
+            </div>
 
-<p>
-    Already have an account?
-    <a href="{% url 'login' %}">
-        Login
-    </a>
-</p>
+            <button
+                type="submit"
+                class="btn auth-btn w-100"
+            >
+                Create Account
+            </button>
+
+        </form>
+
+        <div class="divider">
+            OR
+        </div>
+
+        <a
+            href="/accounts/google/login/"
+            class="google-btn"
+        >
+            <i class="fa-brands fa-google"></i>
+            Continue with Google
+        </a>
+
+        <p class="mt-4 text-center">
+
+            Already have an account?
+
+            <a href="/login/" class="auth-link">
+                Login
+            </a>
+
+        </p>
+
+    </div>
+
+</div>
 
 {% endblock %}

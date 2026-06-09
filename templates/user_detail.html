@@ -1,48 +1,145 @@
 {% extends 'base.html' %}
 
+{% block title %}
+User Details
+{% endblock %}
+
 {% block content %}
 
-<h2>User Details</h2>
+<div class="profile-container">
 
-<p>
-Username:
-{{ selected_user.username }}
-</p>
+    <div class="row g-4">
 
-<p>
-Name:
-{{ selected_user.first_name }} {{ selected_user.last_name }}
-</p>
+        <!-- Left Profile Card -->
 
-<p>
-Email:
-{{ selected_user.email }}
-</p>
+        <div class="col-lg-4">
 
-<p>
-Joined:
-{{ selected_user.date_joined }}
-</p>
+            <div class="profile-card text-center">
 
-{% if selected_user.profile.profile_picture %}
-<img
-src="{{ selected_user.profile.profile_picture.url }}"
-width="200">
-{% endif %}
+                {% if selected_user.profile.profile_picture %}
 
-<p>
-Bio:
-{{ selected_user.profile.bio }}
-</p>
+                <img
+                    src="{{ selected_user.profile.profile_picture.url }}"
+                    class="profile-avatar"
+                    alt="Profile Picture"
+                >
 
-<p>
-Github:
-{{ selected_user.profile.github }}
-</p>
+                {% else %}
 
-<p>
-LinkedIn:
-{{ selected_user.profile.linkedin }}
-</p>
+                <div class="profile-avatar-placeholder">
+                    {{ selected_user.first_name|first|default:selected_user.username|first }}
+                </div>
+
+                {% endif %}
+
+                <h2 class="mt-4">
+                    {{ selected_user.first_name }}
+                    {{ selected_user.last_name }}
+                </h2>
+
+                <p class="profile-role">
+                    {{ selected_user.profile.bio|default:"Platform User" }}
+                </p>
+
+                <div class="social-links">
+
+                    {% if selected_user.profile.github %}
+                    <a
+                        href="{{ selected_user.profile.github }}"
+                        target="_blank"
+                    >
+                        <i class="fab fa-github"></i>
+                    </a>
+                    {% endif %}
+
+                    {% if selected_user.profile.linkedin %}
+                    <a
+                        href="{{ selected_user.profile.linkedin }}"
+                        target="_blank"
+                    >
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Right Information Card -->
+
+        <div class="col-lg-8">
+
+            <div class="profile-card">
+
+                <h3 class="mb-4">
+                    User Information
+                </h3>
+
+                <div class="info-row">
+                    <span>Username</span>
+                    <strong>{{ selected_user.username }}</strong>
+                </div>
+
+                <div class="info-row">
+                    <span>Email</span>
+                    <strong>{{ selected_user.email }}</strong>
+                </div>
+
+                <div class="info-row">
+                    <span>Date Joined</span>
+                    <strong>
+                        {{ selected_user.date_joined|date:"F d, Y" }}
+                    </strong>
+                </div>
+
+                <div class="info-row">
+                    <span>Status</span>
+
+                    {% if selected_user.is_active %}
+                    <span class="badge bg-success">
+                        Active
+                    </span>
+                    {% else %}
+                    <span class="badge bg-danger">
+                        Inactive
+                    </span>
+                    {% endif %}
+
+                </div>
+
+                <div class="info-row">
+                    <span>Role</span>
+
+                    {% if selected_user.is_staff %}
+                    <span class="badge bg-primary">
+                        Admin
+                    </span>
+                    {% else %}
+                    <span class="badge bg-secondary">
+                        User
+                    </span>
+                    {% endif %}
+
+                </div>
+
+                <hr>
+
+                <h4 class="mb-3">
+                    About User
+                </h4>
+
+                <p class="profile-bio">
+                    {{ selected_user.profile.bio|default:"No bio available." }}
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 
 {% endblock %}

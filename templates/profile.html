@@ -6,49 +6,130 @@ Profile
 
 {% block content %}
 
-<a href="{% url 'edit_profile' %}">
-    Edit Profile
-</a>
+<div class="profile-container">
 
-<h2>User Profile</h2>
+    <div class="row g-4">
 
-{% if user.profile.profile_picture %}
-<img src="{{ user.profile.profile_picture.url }}" width="200">
-{% endif %}
+        <!-- Left Card -->
 
-<p>
-    Username:
-    {{ user.username }}
-</p>
+        <div class="col-lg-4">
 
-<p>
-    Name:
-    {{ user.first_name }} {{ user.last_name }}
-</p>
+            <div class="profile-card text-center">
 
-<p>
-    Email:
-    {{ user.email }}
-</p>
+                {% if user.profile.profile_picture %}
 
-<p>
-    Bio:
-    {{ user.profile.bio }}
-</p>
+                <img
+                    src="{{ user.profile.profile_picture.url }}"
+                    class="profile-avatar"
+                    alt="Profile Picture"
+                    
+                >
 
-<p>
-    GitHub:
-    {{ user.profile.github }}
-</p>
+                {% else %}
 
-<p>
-    LinkedIn:
-    {{ user.profile.linkedin }}
-</p>
+                <div class="profile-avatar-placeholder">
+                    {{ user.first_name|first|default:user.username|first }}
+                </div>
 
-<p>
-    Date Joined:
-    {{ user.date_joined }}
-</p>
+                {% endif %}
+
+                <h2 class="mt-4">
+                    {{ user.first_name }} {{ user.last_name }}
+                </h2>
+
+                <p class="profile-role">
+                    {{ user.profile.bio|default:"Member" }}
+                </p>
+
+                <div class="social-links">
+
+                    {% if user.profile.github %}
+                    <a
+                        href="{{ user.profile.github }}"
+                        target="_blank"
+                    >
+                        <i class="fab fa-github"></i>
+                    </a>
+                    {% endif %}
+
+                    {% if user.profile.linkedin %}
+                    <a
+                        href="{{ user.profile.linkedin }}"
+                        target="_blank"
+                    >
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    {% endif %}
+
+                </div>
+
+                <a
+                    href="{% url 'edit_profile' %}"
+                    class="btn auth-btn mt-4"
+                >
+                    Edit Profile
+                </a>
+
+            </div>
+
+        </div>
+
+        <!-- Right Card -->
+
+        <div class="col-lg-8">
+
+            <div class="profile-card">
+
+                <h3 class="mb-4">
+                    Profile Information
+                </h3>
+
+                <div class="info-row">
+                    <span>Username</span>
+                    <strong>{{ user.username }}</strong>
+                </div>
+
+                <div class="info-row">
+                    <span>Email</span>
+                    <strong>{{ user.email }}</strong>
+                </div>
+
+                <div class="info-row">
+                    <span>Date Joined</span>
+                    <strong>{{ user.date_joined|date:"F d, Y" }}</strong>
+                </div>
+
+                <div class="info-row">
+                    <span>Bio</span>
+                    <strong>
+                        {{ user.profile.bio|default:"Not Added Yet" }}
+                    </strong>
+                </div>
+
+                <hr>
+
+                <h5 class="mb-3">
+                    Profile Completion
+                </h5>
+
+                <div class="progress profile-progress">
+
+                    <div
+                        class="progress-bar"
+                        role="progressbar"
+                        style="width: 80%;"
+                    >
+                        80%
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 
 {% endblock %}

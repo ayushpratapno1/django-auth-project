@@ -125,13 +125,20 @@ def dashboard(request):
     users = User.objects.all().order_by('-date_joined')
 
     context = {
-        'staff_users': staff_users,
-'active_users': active_users,
-'inactive_users': inactive_users,
-        'total_users': total_users,
-        'total_profiles': total_profiles,
-        'users': users,
-    }
+    'users': users,
+    'total_users': total_users,
+    'active_users': active_users,
+    'inactive_users': inactive_users,
+    'staff_users': staff_users,
+    'total_profiles': total_profiles,
+    'chart_data': [
+        total_users,
+        active_users,
+        inactive_users,
+        staff_users,
+        total_profiles
+    ]
+}
 
     return render(
         request,

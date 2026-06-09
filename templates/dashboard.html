@@ -6,53 +6,239 @@ Dashboard
 
 {% block content %}
 
-<h1>Admin Dashboard</h1>
-<h3>Total Staff Users: {{ staff_users }}</h3>
+<div class="dashboard-header">
 
-<h3>Active Users: {{ active_users }}</h3>
+    <h1 class="mb-2">
+        Admin Dashboard 🚀
+    </h1>
 
-<h3>Inactive Users: {{ inactive_users }}</h3>
-<h3>Total Users: {{ total_users }}</h3>
-<h3>Total Profiles: {{ total_profiles }}</h3>
+    <p class="dashboard-subtitle">
+        Manage users and monitor platform activity
+    </p>
 
-<hr>
+</div>
 
-<h2>Registered Users</h2>
+<!-- Stats Cards -->
 
-<table border="1">
+<div class="row g-4 mb-5">
 
-    <tr>
-        <th>Username</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Date Joined</th>
-        <th>Staff</th>
-        <th>Active</th>
-    </tr>
+    <div class="col-lg-3 col-md-6">
 
-    {% for user in users %}
+        <div class="stat-card">
 
-    <tr>
+            <h6>Total Users</h6>
 
-        <td>
-            <a href="{% url 'user_detail' user.id %}">
-                {{ user.username }}
-            </a>
-        </td>
-        <td>{{ user.first_name }} {{ user.last_name }}</td>
+            <h2 class="counter" data-target="{{ total_users }}">0</h2>
 
-        <td>{{ user.email }}</td>
+        </div>
 
-        <td>{{ user.date_joined }}</td>
+    </div>
 
-        <td>{{ user.is_staff }}</td>
+    <div class="col-lg-3 col-md-6">
 
-        <td>{{ user.is_active }}</td>
+        <div class="stat-card">
 
-    </tr>
+            <h6>Total Profiles</h6>
 
-    {% endfor %}
+            <h2 class="counter" data-target="{{ total_profiles }}">0</h2>
 
-</table>
+        </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="stat-card">
+
+            <h6>Active Users</h6>
+
+            <h2 class="counter" data-target="{{ active_users }}">0</h2>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="stat-card">
+
+            <h6>Staff Users</h6>
+
+            <h2 class="counter" data-target="{{ staff_users }}">0</h2>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Analytics Card -->
+
+<div class="dashboard-card mb-5">
+
+    <h3 class="mb-4">
+        Platform Analytics
+    </h3>
+
+    <canvas id="analyticsChart"></canvas>
+
+</div>
+
+<!-- User Table -->
+
+<div class="dashboard-card">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h3>
+            Registered Users
+        </h3>
+
+        <input type="text" id="userSearch" placeholder="Search user..." class="search-input">
+
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table table-dark align-middle">
+
+            <thead>
+
+                <tr>
+
+                    <th>User</th>
+
+                    <th>Email</th>
+
+                    <th>Joined</th>
+
+                    <th>Status</th>
+
+                    <th>Role</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="userTable">
+
+                {% for user in users %}
+
+                <tr>
+                    <td>
+
+                        <div class="user-info">
+
+                            {% if user.profile.profile_picture %}
+
+                            <img src="{{ user.profile.profile_picture.url }}" class="table-avatar">
+
+                            {% endif %}
+
+                            <a href="{% url 'user_detail' user.id %}" class="user-link">
+                                {{ user.username }}
+                            </a>
+
+                        </div>
+
+                    </td>
+
+
+
+                    <td>
+                        {{ user.email }}
+                    </td>
+
+                    <td>
+                        {{ user.date_joined|date:"M d, Y" }}
+                    </td>
+
+                    <td>
+
+                        {% if user.is_active %}
+
+                        <span class="badge bg-success">
+                            Active
+                        </span>
+
+                        {% else %}
+
+                        <span class="badge bg-danger">
+                            Inactive
+                        </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        {% if user.is_staff %}
+
+                        <span class="badge bg-primary">
+                            Admin
+                        </span>
+
+                        {% else %}
+
+                        <span class="badge bg-secondary">
+                            User
+                        </span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{{ chart_data|json_script:"chart-data" }}
+
+<script>
+
+    window.addEventListener("load", function () {
+
+        const chartData = JSON.parse(
+            document.getElementById("chart-data").textContent
+        );
+
+        const ctx =
+            document.getElementById(
+                "analyticsChart"
+            );
+
+        new Chart(ctx, {
+
+            type: "bar",
+
+            data: {
+
+                labels: [
+                    "Users",
+                    "Active",
+                    "Inactive",
+                    "Staff",
+                    "Profiles"
+                ],
+
+                datasets: [{
+                    label: "Platform Statistics",
+                    data: chartData
+                }]
+            }
+        });
+
+    });
+
+</script>
 
 {% endblock %}
