@@ -6,18 +6,55 @@ Edit Profile
 
 {% block content %}
 
-<h2>Edit Profile</h2>
+<div class="auth-container">
 
-<form method="POST" enctype="multipart/form-data">
+    <div class="auth-card edit-profile-card">
+        
 
-    {% csrf_token %}
+        <h1 class="auth-title">
+            Edit Profile ✨
+        </h1>
 
-    {{ form.as_p }}
+        {% if user.profile.profile_picture %}
+<div class="text-center mb-4">
 
-    <button type="submit">
-        Save Changes
-    </button>
+    <img
+        src="{{ user.profile.profile_picture.url }}"
+        class="profile-avatar"
+        alt="Current Profile Picture"
+    >
 
-</form>
+</div>
+{% endif %}
+
+        <p class="auth-subtitle">
+            Keep your profile updated
+        </p>
+
+        <form
+            method="POST"
+            enctype="multipart/form-data"
+        >
+
+            {% csrf_token %}
+
+            <div class="profile-form">
+
+                {{ form.as_p }}
+
+            </div>
+
+            <button
+                type="submit"
+                class="btn auth-btn w-100"
+            >
+                Save Changes
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
 
 {% endblock %}
