@@ -127,35 +127,23 @@ Dashboard
                 <tr>
                     <td>
 
-<div class="user-info">
+                        <div class="user-info">
 
-{% if user.profile.profile_picture %}
+                            {% if user.profile.profile_picture %}
 
-<img
-    src="{{ user.profile.profile_picture.url }}"
-    class="table-avatar"
->
+                            <img src="{{ user.profile.profile_picture.url }}" class="table-avatar">
 
-{% endif %}
+                            {% endif %}
 
-<a
-href="{% url 'user_detail' user.id %}"
-class="user-link"
->
-{{ user.username }}
-</a>
+                            <a href="{% url 'user_detail' user.id %}" class="user-link">
+                                {{ user.username }}
+                            </a>
 
-</div>
-
-</td>
-
-                    <td>
-
-                        <a href="{% url 'user_detail' user.id %}" class="user-link">
-                            {{ user.username }}
-                        </a>
+                        </div>
 
                     </td>
+
+
 
                     <td>
                         {{ user.email }}
