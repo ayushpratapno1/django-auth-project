@@ -60,26 +60,28 @@ class LoginTest(TestCase):
 
 class ProtectedRouteTest(TestCase):
 
-    def test_dashboard_redirects(self):
+    def test_dashboard_requires_login(self):
 
         response = self.client.get(
             reverse("dashboard")
         )
 
-        self.assertEqual(
-            response.status_code,
-            302
+        self.assertRedirects(
+            response,
+            f"{reverse('login')}?next={reverse('dashboard')}"
         )
 
 class DashboardAccessTest(TestCase):
 
-    def test_staff_can_access_dashboard(self):
+    def setUp(self):
 
-        user = User.objects.create_user(
+        self.user = User.objects.create_user(
             username="adminuser",
             password="password123",
             is_staff=True
         )
+
+    def test_staff_can_access_dashboard(self):
 
         self.client.login(
             username="adminuser",
@@ -87,7 +89,8 @@ class DashboardAccessTest(TestCase):
         )
 
         response = self.client.get(
-            reverse("dashboard")
+            reverse("dashboard"),
+            follow=True
         )
 
         self.assertEqual(
