@@ -1,0 +1,52 @@
+name: Django CI
+
+on:
+  push:
+    branches:
+      - main
+      - beta
+      - feature
+
+  pull_request:
+    branches:
+      - main
+      - beta
+      - feature
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set Up Python
+        uses: actions/setup-python@v5
+
+        with:
+          python-version: '3.12'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Django Check
+        env:
+          SECRET_KEY: test-secret-key
+          DEBUG: False
+          ALLOWED_HOSTS: localhost
+
+          CLOUDINARY_CLOUD_NAME: test
+          CLOUDINARY_API_KEY: test
+          CLOUDINARY_API_SECRET: test
+
+          GOOGLE_CLIENT_ID: test
+          GOOGLE_CLIENT_SECRET: test
+
+        run: |
+          python manage.py check
