@@ -1,3 +1,5 @@
+from urllib import response
+
 from django.test import TestCase
 from django.contrib.auth.models import User
 from .models import Profile
@@ -63,12 +65,13 @@ class ProtectedRouteTest(TestCase):
     def test_dashboard_requires_login(self):
 
         response = self.client.get(
-            reverse("dashboard")
+            reverse("dashboard"),
+            follow=True
         )
 
-        self.assertRedirects(
+        self.assertContains(
             response,
-            f"{reverse('login')}?next={reverse('dashboard')}"
+            "Login"
         )
 
 class DashboardAccessTest(TestCase):

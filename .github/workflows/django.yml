@@ -51,6 +51,10 @@ jobs:
         run: |
           python manage.py check
 
+      - name: Collect Static Files
+        run: |
+          python manage.py collectstatic --noinput
+
       - name: Run Tests
         env:
           SECRET_KEY: test-secret-key
