@@ -14,7 +14,7 @@ from .forms import MissionForm, ProfileForm, SignUpForm
 from .models import Message, Mission, Profile
 
 
-TEST_MEDIA_ROOT = tempfile.mkdtemp(dir="C:\\tmp")
+TEST_MEDIA_ROOT = tempfile.mkdtemp()
 TEST_STORAGES = {
     "default": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
