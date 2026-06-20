@@ -3,9 +3,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.contrib import messages
 from django.shortcuts import render, redirect
-from .forms import SignUpForm
-from .forms import ProfileForm
-from .models import Profile, Message
+from .forms import SignUpForm, ProfileForm, MissionForm
+from .models import Profile, Message, Mission
 from django.contrib.auth.models import User
 from django.http import HttpResponseForbidden
 
@@ -217,3 +216,78 @@ def chat(request):
         ).count()
     }
 )
+
+@login_required
+def operations(request):
+
+    missions = Mission.objects.order_by(
+        "-created_at"
+    )
+
+    return render(
+        request,
+        "operations.html",
+        {
+            "missions": missions,
+            "can_create": can_create_operations(
+                request.user
+            )
+        }
+    )
+
+def can_create_operations(user):
+
+    if user.is_staff:
+        return True
+
+    try:
+
+        return user.profile.rank in [
+            "Caporegime",
+            "Underboss"
+        ]
+
+    except:
+        return False
+    
+@login_required
+def create_operation(request):
+
+    if not can_create_operations(
+        request.user
+    ):
+        return HttpResponseForbidden(
+            "You are not authorized."
+        )
+
+    if request.method == "POST":
+
+        form = MissionForm(
+            request.POST
+        )
+
+        if form.is_valid():
+
+            mission = form.save(
+                commit=False
+            )
+
+            mission.created_by = request.user
+
+            mission.save()
+
+            return redirect(
+                "operations"
+            )
+
+    else:
+
+        form = MissionForm()
+
+    return render(
+        request,
+        "create_operation.html",
+        {
+            "form": form
+        }
+    )

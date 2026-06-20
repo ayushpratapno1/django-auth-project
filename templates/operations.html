@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% block title %}
+Operations
+{% endblock %}
+
+{% block content %}
+
+<div class="text-center mb-5">
+
+    <h1 class="hero-title">
+        Operations Board
+    </h1>
+
+    <p class="hero-description">
+        Current organizational activities and active operations
+    </p>
+
+    {% if can_create %}
+
+    <div class="mt-4">
+
+        <a href="{% url 'create_operation' %}" class="btn auth-btn">
+            <i class="fa-solid fa-plus"></i>
+            Create Operation
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+<div class="row g-4">
+
+    {% for mission in missions %}
+
+    <div class="col-lg-6">
+
+        <div class="feature-card h-100 operation-card">
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                <h3 class="mb-0">
+                    {{ mission.title }}
+                </h3>
+
+                <span class="member-badge">
+                    {{ mission.status }}
+                </span>
+
+            </div>
+
+            <hr>
+
+            <p class="operation-description">
+                {{ mission.description }}
+            </p>
+
+            <div class="mt-4">
+
+                <div class="d-flex justify-content-between">
+
+                    <small class="text-secondary">
+
+                        <i class="fa-solid fa-user"></i>
+
+                        {% if mission.created_by %}
+                        {{ mission.created_by.username }}
+                        {% else %}
+                        System
+                        {% endif %}
+
+                    </small>
+
+                    <small class="text-secondary">
+
+                        <i class="fa-solid fa-calendar"></i>
+
+                        {{ mission.created_at|date:"d M Y" }}
+
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <div class="col-12">
+
+        <div class="feature-card text-center py-5">
+
+            <i class="fa-solid fa-folder-open" style="font-size:3rem;"></i>
+
+            <h3 class="mt-4">
+                No Operations Available
+            </h3>
+
+            <p class="text-secondary">
+                No active operations have been created yet.
+            </p>
+
+            {% if can_create %}
+
+            <a href="{% url 'create_operation' %}" class="btn auth-btn mt-3">
+                Create First Operation
+            </a>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

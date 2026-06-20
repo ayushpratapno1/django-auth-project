@@ -1,5 +1,5 @@
 from django import forms
-from .models import Profile
+from .models import Profile, Mission
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -94,3 +94,24 @@ class ProfileForm(forms.ModelForm):
 
         if field_name in labels:
             field.label = labels[field_name]
+
+class MissionForm(forms.ModelForm):
+
+    class Meta:
+        model = Mission
+
+        fields = [
+            "title",
+            "description",
+            "status"
+        ]
+
+    def __init__(self, *args, **kwargs):
+
+        super().__init__(*args, **kwargs)
+
+        for field in self.fields.values():
+
+            field.widget.attrs.update({
+                "class": "form-control"
+            })

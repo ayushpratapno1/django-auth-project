@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Profile, Message
-
+from .models import Profile, Message, Mission
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
@@ -27,4 +26,21 @@ class MessageAdmin(admin.ModelAdmin):
 
     list_filter = (
         "is_deleted",
+    )
+
+@admin.register(Mission)
+class MissionAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "title",
+        "status",
+        "created_at"
+    )
+
+    list_filter = (
+        "status",
+    )
+
+    search_fields = (
+        "title",
     )

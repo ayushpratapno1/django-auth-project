@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}
+Create Operation
+{% endblock %}
+
+{% block content %}
+
+<div class="auth-container">
+
+    <div class="auth-card">
+
+        <h2 class="text-center mb-4">
+            Create Operation
+        </h2>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button
+                type="submit"
+                class="btn auth-btn w-100"
+            >
+                Publish Operation
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

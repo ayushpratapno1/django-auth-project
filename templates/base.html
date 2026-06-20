@@ -71,6 +71,15 @@
                             Headquarters
                         </a>
                     </li>
+
+                    {% if user.is_authenticated %}
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profile/">
+                            Dossier
+                        </a>
+                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="/members/">
                             Members
@@ -83,11 +92,9 @@
                         </a>
                     </li>
 
-                    {% if user.is_authenticated %}
-
                     <li class="nav-item">
-                        <a class="nav-link" href="/profile/">
-                            Dossier
+                        <a class="nav-link" href="/operations/">
+                            Operations
                         </a>
                     </li>
 
