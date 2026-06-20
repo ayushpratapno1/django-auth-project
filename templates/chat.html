@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}
+Communication Center
+{% endblock %}
+
+{% block content %}
+
+<div class="chat-container">
+
+<div class="chat-header">
+
+    <div>
+
+        <h2>
+            Communication Center
+        </h2>
+
+        <p>
+            Secure Headquarters Communication Channel
+        </p>
+
+    </div>
+
+    <div class="chat-stats">
+
+        <span class="member-status">
+            Active Network
+        </span>
+
+        <div class="mt-2">
+            Messages Stored:
+            <strong>{{ message_count }}</strong>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="chat-messages">
+
+    {% for message in messages %}
+
+    <div class="message-card">
+
+        <div class="message-top">
+
+            <div class="sender">
+
+                {% if message.user.profile.profile_picture %}
+
+                <img
+                    src="{{ message.user.profile.profile_picture.url }}"
+                    class="chat-avatar"
+                    alt="{{ message.user.username }}"
+                >
+
+                {% else %}
+
+                <div class="chat-avatar-placeholder">
+                    {{ message.user.username|first|upper }}
+                </div>
+
+                {% endif %}
+
+                <div>
+
+                    <h6 class="mb-1">
+                        {{ message.user.username }}
+                    </h6>
+
+                    <span class="member-badge">
+                        Active Member
+                    </span>
+
+                </div>
+
+            </div>
+
+            <small class="message-time">
+                {{ message.created_at|date:"d M Y • H:i" }}
+            </small>
+
+        </div>
+
+        <div class="message-content">
+            {{ message.content }}
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <div class="text-center py-5">
+
+        <h4>
+            No communications available
+        </h4>
+
+        <p class="text-secondary">
+            Be the first member to start the conversation.
+        </p>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+<form method="POST" class="chat-form">
+
+    {% csrf_token %}
+
+    <textarea
+        name="content"
+        placeholder="Send secure communication..."
+        required
+    ></textarea>
+
+    <button type="submit">
+
+        <i class="fa-solid fa-paper-plane"></i>
+
+        Send
+
+    </button>
+
+</form>
+
+</div>
+
+{% endblock %}

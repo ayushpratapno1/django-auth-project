@@ -11,5 +11,6 @@ urlpatterns = [
     path('edit-profile/', edit_profile, name='edit_profile'),
     path('dashboard/', dashboard, name='dashboard'),
     path('dashboard/user/<int:user_id>/', user_detail, name='user_detail'),
-    path("members/",views.members,name="members")
+    path("members/",views.members,name="members"),
+    path("chat/", views.chat, name="chat"),
 ]

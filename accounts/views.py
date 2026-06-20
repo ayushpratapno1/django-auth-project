@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from .forms import SignUpForm
 from .forms import ProfileForm
-from .models import Profile
+from .models import Profile, Message
 from django.contrib.auth.models import User
 from django.http import HttpResponseForbidden
 
@@ -178,3 +178,42 @@ def members(request):
             "members": members
         }
     )
+
+@login_required
+def chat(request):
+
+    if request.method == "POST":
+
+        content = request.POST.get(
+            "content"
+        )
+
+        if content:
+
+            Message.objects.create(
+                user=request.user,
+                content=content
+            )
+
+            return redirect("chat")
+
+    messages = Message.objects.filter(
+        is_deleted=False
+    ).select_related(
+        "user"
+    ).order_by(
+        "-created_at"
+    )[:100]
+
+    messages = reversed(messages)
+
+    return render(
+    request,
+    "chat.html",
+    {
+        "messages": messages,
+        "message_count": Message.objects.filter(
+            is_deleted=False
+        ).count()
+    }
+)

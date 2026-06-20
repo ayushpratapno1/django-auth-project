@@ -60,7 +60,6 @@ class ProfileForm(forms.ModelForm):
         'division',
         'specialty',
         'territory',
-        'rank',
     ]
 
   def __init__(self, *args, **kwargs):
