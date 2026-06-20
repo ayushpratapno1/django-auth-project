@@ -12,3 +12,4 @@ PyJWT==2.10.1
 cryptography==46.0.3
 cloudinary==1.44.2
 django-cloudinary-storage==0.3.0
+coverage==7.14.1
