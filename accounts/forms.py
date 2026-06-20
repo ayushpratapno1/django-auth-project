@@ -27,8 +27,8 @@ class SignUpForm(UserCreationForm):
             'first_name': 'Enter first name',
             'last_name': 'Enter last name',
             'email': 'Enter email address',
-            'password1': 'Create passphrase',
-            'password2': 'Confirm passphrase'
+            'password1': 'Create password',
+            'password2': 'Confirm password'
         }
 
         labels = {
@@ -36,8 +36,8 @@ class SignUpForm(UserCreationForm):
             'first_name': 'First Name',
             'last_name': 'Last Name',
             'email': 'Contact Email',
-            'password1': 'Security Passphrase',
-            'password2': 'Confirm Passphrase',
+            'password1': 'Security Password',
+            'password2': 'Confirm Password',
         }
 
         for field_name, field in self.fields.items():
