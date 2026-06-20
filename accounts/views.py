@@ -163,3 +163,18 @@ def user_detail(request, user_id):
             'selected_user': selected_user
         }
     )
+
+@login_required
+def members(request):
+
+    members = Profile.objects.select_related(
+        "user"
+    ).order_by("rank")
+
+    return render(
+        request,
+        "members.html",
+        {
+            "members": members
+        }
+    )

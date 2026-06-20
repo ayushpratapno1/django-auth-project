@@ -1,65 +1,73 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Sign Up
+Join Network
 {% endblock %}
 
 {% block content %}
 
 <div class="auth-container">
 
-    <div class="auth-card">
+<div class="auth-card">
+
+    <div class="text-center mb-4">
+
+        <div class="login-logo mb-3">
+            <i class="fa-solid fa-user-secret"></i>
+        </div>
 
         <h1 class="auth-title">
-            Create Account 🚀
+            Recruitment Application
         </h1>
 
         <p class="auth-subtitle">
-            Join the platform and get started
-        </p>
-
-        <form method="POST">
-
-            {% csrf_token %}
-
-            <div class="signup-form">
-
-                {{ form.as_p }}
-
-            </div>
-
-            <button
-                type="submit"
-                class="btn auth-btn w-100"
-            >
-                Create Account
-            </button>
-
-        </form>
-
-        <div class="divider">
-            OR
-        </div>
-
-        <a
-            href="/accounts/google/login/"
-            class="google-btn"
-        >
-            <i class="fa-brands fa-google"></i>
-            Continue with Google
-        </a>
-
-        <p class="mt-4 text-center">
-
-            Already have an account?
-
-            <a href="/login/" class="auth-link">
-                Login
-            </a>
-
+            Submit your details to gain access to the network.
         </p>
 
     </div>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <div class="signup-form">
+
+            {{ form.as_p }}
+
+        </div>
+
+        <button
+            type="submit"
+            class="btn auth-btn w-100"
+        >
+            Join The Network
+        </button>
+
+    </form>
+
+    <div class="divider">
+        SECURE REGISTRATION
+    </div>
+
+    <a
+        href="/accounts/google/login/"
+        class="google-btn"
+    >
+        <i class="fa-brands fa-google"></i>
+        Register with Google
+    </a>
+
+    <p class="mt-4 text-center">
+
+        Already a member?
+
+        <a href="/login/" class="auth-link">
+            Access Headquarters
+        </a>
+
+    </p>
+
+</div>
 
 </div>
 

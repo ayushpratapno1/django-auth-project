@@ -1,59 +1,68 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Edit Profile
+Update Dossier
 {% endblock %}
 
 {% block content %}
 
 <div class="auth-container">
 
-    <div class="auth-card edit-profile-card">
-        
+<div class="auth-card edit-profile-card">
+
+    <div class="text-center mb-4">
+
+        <div class="login-logo mb-3">
+            <i class="fa-solid fa-file-shield"></i>
+        </div>
 
         <h1 class="auth-title">
-            Edit Profile ✨
+            Update Dossier
         </h1>
 
-        {% if user.profile.profile_picture %}
-<div class="text-center mb-4">
-
-    <img
-        src="{{ user.profile.profile_picture.url }}"
-        class="profile-avatar"
-        alt="Current Profile Picture"
-    >
-
-</div>
-{% endif %}
-
         <p class="auth-subtitle">
-            Keep your profile updated
+            Maintain your network identity and member records.
         </p>
 
-        <form
-            method="POST"
-            enctype="multipart/form-data"
+    </div>
+
+    {% if user.profile.profile_picture %}
+
+    <div class="text-center mb-4">
+
+        <img
+            src="{{ user.profile.profile_picture.url }}"
+            class="profile-avatar"
+            alt="Current Profile Picture"
         >
 
-            {% csrf_token %}
-
-            <div class="profile-form">
-
-                {{ form.as_p }}
-
-            </div>
-
-            <button
-                type="submit"
-                class="btn auth-btn w-100"
-            >
-                Save Changes
-            </button>
-
-        </form>
-
     </div>
+
+    {% endif %}
+
+    <form
+        method="POST"
+        enctype="multipart/form-data"
+    >
+
+        {% csrf_token %}
+
+        <div class="profile-form">
+
+            {{ form.as_p }}
+
+        </div>
+
+        <button
+            type="submit"
+            class="btn auth-btn w-100"
+        >
+            Update Records
+        </button>
+
+    </form>
+
+</div>
 
 </div>
 

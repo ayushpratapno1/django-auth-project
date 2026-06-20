@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Home
+MACHIS GANG
 {% endblock %}
 
 {% block content %}
@@ -12,24 +12,26 @@ Home
 
         <div class="col-lg-6">
 
-            <span class="badge bg-primary mb-3">
-                Production Ready Authentication Platform
+            <span class="badge bg-danger mb-3">
+                Private Organization • Established 2023
             </span>
 
             <h1 class="hero-title">
-                Secure Authentication
+                MACHIS GANG
                 <span class="gradient-text">
-                    Made Simple
+                    Headquarters
                 </span>
             </h1>
 
             <p class="hero-description">
 
-                A complete authentication platform built with
-                Django, PostgreSQL, Google OAuth,
-                Cloudinary and Render.
+                A private network built on loyalty,
+                trust and reputation.
 
-                Secure. Fast. Scalable.
+                Access member dossiers,
+                organization records,
+                communication channels
+                and operational intelligence.
 
             </p>
 
@@ -41,7 +43,7 @@ Home
                     href="/profile/"
                     class="btn btn-primary btn-lg me-2"
                 >
-                    My Profile
+                    My Dossier
                 </a>
 
                 {% else %}
@@ -50,14 +52,14 @@ Home
                     href="/signup/"
                     class="btn btn-primary btn-lg me-2"
                 >
-                    Get Started
+                    Join Network
                 </a>
 
                 <a
                     href="/login/"
                     class="btn btn-outline-light btn-lg"
                 >
-                    Login
+                    Access HQ
                 </a>
 
                 {% endif %}
@@ -68,43 +70,96 @@ Home
 
         <div class="col-lg-6">
 
-            <div class="feature-card">
+            <div class="feature-card gang-members-card">
 
-                <h3>
-                    Platform Features
+                <h3 class="mb-4">
+                    Most Respected Members
                 </h3>
 
-                <ul class="feature-list">
+                <div class="member-item mb-3">
+                    <div>
+                        <h5>Raman Khacchar</h5>
+                        <small>Founder</small>
+                    </div>
+                </div>
 
-                    <li>
-                        ✅ Django Authentication
-                    </li>
+                <div class="member-item mb-3">
+                    <div>
+                        <h5>Rajat Natta</h5>
+                        <small>Operations Head</small>
+                    </div>
+                </div>
 
-                    <li>
-                        ✅ Google OAuth Login
-                    </li>
+                <div class="member-item mb-3">
+                    <div>
+                        <h5>Kaliya</h5>
+                        <small>Intelligence Division</small>
+                    </div>
+                </div>
 
-                    <li>
-                        ✅ PostgreSQL Database
-                    </li>
+                <div class="member-item mb-3">
+                    <div>
+                        <h5>Lambu</h5>
+                        <small>Field Operations</small>
+                    </div>
+                </div>
 
-                    <li>
-                        ✅ Cloudinary Storage
-                    </li>
+                <div class="member-item">
+                    <div>
+                        <h5>Fauji</h5>
+                        <small>Security Division</small>
+                    </div>
+                </div>
 
-                    <li>
-                        ✅ User Profiles
-                    </li>
+            </div>
 
-                    <li>
-                        ✅ Admin Dashboard
-                    </li>
+        </div>
 
-                    <li>
-                        ✅ Production Deployment
-                    </li>
+    </div>
 
-                </ul>
+</section>
+
+<section class="mt-5">
+
+    <div class="row">
+
+        <div class="col-md-4 mb-4">
+
+            <div class="welcome-card text-center">
+
+                <h2>150+</h2>
+
+                <p>
+                    Active Members
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4 mb-4">
+
+            <div class="welcome-card text-center">
+
+                <h2>24</h2>
+
+                <p>
+                    Territories
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4 mb-4">
+
+            <div class="welcome-card text-center">
+
+                <h2>12</h2>
+
+                <p>
+                    Divisions
+                </p>
 
             </div>
 
@@ -122,11 +177,15 @@ Home
 
         <h2>
             Welcome Back,
-            {{ user.first_name|default:user.username }} {{ user.last_name|default:'' }}
+            {{ user.first_name|default:user.username }}
         </h2>
 
         <p>
-            Manage your profile and explore your dashboard.
+            Status: Active Member
+        </p>
+
+        <p>
+            Access your dossier and network resources.
         </p>
 
     </div>

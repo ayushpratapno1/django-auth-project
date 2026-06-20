@@ -1,97 +1,105 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Login
+Access Headquarters
 {% endblock %}
 
 {% block content %}
 
 <div class="auth-container">
 
-    <div class="auth-card">
+<div class="auth-card">
+
+    <div class="text-center mb-4">
+
+        <div class="login-logo mb-3">
+            <i class="fa-solid fa-user-secret"></i>
+        </div>
 
         <h1 class="auth-title">
-            Welcome Back 👋
+            Access Headquarters
         </h1>
 
         <p class="auth-subtitle">
-            Sign in to continue
-        </p>
-
-        {% for message in messages %}
-        <div class="alert alert-warning">
-            {{ message }}
-        </div>
-        {% endfor %}
-
-        <form method="POST">
-
-            {% csrf_token %}
-
-            <div class="mb-3">
-
-                <label class="form-label">
-                    Username
-                </label>
-
-                <input
-                    type="text"
-                    name="username"
-                    class="form-control auth-input"
-                    placeholder="Enter username"
-                    required
-                >
-
-            </div>
-
-            <div class="mb-3">
-
-                <label class="form-label">
-                    Password
-                </label>
-
-                <input
-                    type="password"
-                    name="password"
-                    class="form-control auth-input"
-                    placeholder="Enter password"
-                    required
-                >
-
-            </div>
-
-            <button
-                type="submit"
-                class="btn auth-btn w-100"
-            >
-                Login
-            </button>
-
-        </form>
-
-        <div class="divider">
-            OR
-        </div>
-
-        <a
-            href="/accounts/google/login/"
-            class="google-btn"
-        >
-            <i class="fa-brands fa-google"></i>
-            Continue with Google
-        </a>
-
-        <p class="mt-4 text-center">
-
-            Don't have an account?
-
-            <a href="/signup/" class="auth-link">
-                Sign Up
-            </a>
-
+            Authorized members only.
         </p>
 
     </div>
+
+    {% for message in messages %}
+    <div class="alert alert-warning">
+        {{ message }}
+    </div>
+    {% endfor %}
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <div class="mb-3">
+
+            <label class="form-label">
+                Codename
+            </label>
+
+            <input
+                type="text"
+                name="username"
+                class="form-control auth-input"
+                placeholder="Enter your codename"
+                required
+            >
+
+        </div>
+
+        <div class="mb-4">
+
+            <label class="form-label">
+                Security Password
+            </label>
+
+            <input
+                type="password"
+                name="password"
+                class="form-control auth-input"
+                placeholder="Enter security password"
+                required
+            >
+
+        </div>
+
+        <button
+            type="submit"
+            class="btn auth-btn w-100"
+        >
+            Enter Network
+        </button>
+
+    </form>
+
+    <div class="divider">
+        SECURE ACCESS
+    </div>
+
+    <a
+        href="/accounts/google/login/"
+        class="google-btn"
+    >
+        <i class="fa-brands fa-google"></i>
+        Authenticate with Google
+    </a>
+
+    <p class="mt-4 text-center">
+
+        Not a member?
+
+        <a href="/signup/" class="auth-link">
+            Request Access
+        </a>
+
+    </p>
+
+</div>
 
 </div>
 

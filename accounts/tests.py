@@ -71,7 +71,7 @@ class ProtectedRouteTest(TestCase):
 
         self.assertContains(
             response,
-            "Login"
+            "Access Headquarters"
         )
 
 class DashboardAccessTest(TestCase):

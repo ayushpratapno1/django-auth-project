@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}
+Members Directory
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="text-center mb-5">
+
+        <h1 class="hero-title">
+            Member Directory
+        </h1>
+
+        <p class="hero-description">
+            Verified members of the Machis Gang network
+        </p>
+
+    </div>
+
+    <div class="row g-4">
+
+        {% for member in members %}
+
+        <div class="col-md-6 col-lg-4">
+
+            <div class="feature-card h-100 text-center">
+
+                {% if member.profile_picture %}
+
+                <img
+                    src="{{ member.profile_picture.url }}"
+                    class="profile-avatar mb-3"
+                    alt="{{ member.user.username }}"
+                >
+
+                {% else %}
+
+                <div class="profile-avatar-placeholder mb-3">
+                    {{ member.user.username|first|upper }}
+                </div>
+
+                {% endif %}
+
+                <h4>
+                    {{ member.user.username }}
+                </h4>
+
+                <div class="member-badge mb-3">
+                    {{ member.rank }}
+                </div>
+
+                <p>
+                    <strong>Division:</strong>
+                    {{ member.division|default:"Not Assigned" }}
+                </p>
+
+                <p>
+                    <strong>Specialty:</strong>
+                    {{ member.specialty|default:"Unknown" }}
+                </p>
+
+                <p>
+                    <strong>Territory:</strong>
+                    {{ member.territory|default:"Unassigned" }}
+                </p>
+
+                <span class="member-status">
+                    {{ member.status }}
+                </span>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}
