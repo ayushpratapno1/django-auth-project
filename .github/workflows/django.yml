@@ -6,12 +6,16 @@ on:
       - main
       - beta
       - feature
+      - machis
+      - machis-gang
 
   pull_request:
     branches:
       - main
       - beta
       - feature
+      - machis
+      - machis-gang
 
 jobs:
 
