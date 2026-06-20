@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from .forms import SignUpForm, ProfileForm, MissionForm
 from .models import Profile, Message, Mission
 from django.contrib.auth.models import User
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, JsonResponse
 
 
 # Create your views here.
@@ -216,6 +216,47 @@ def chat(request):
         ).count()
     }
 )
+
+@login_required
+def chat_messages(request):
+
+    messages = Message.objects.filter(
+        is_deleted=False
+    ).select_related(
+        "user"
+    ).order_by(
+        "-created_at"
+    )[:100]
+
+    messages = reversed(messages)
+
+    data = []
+
+    for message in messages:
+
+        data.append({
+
+            "user": message.user.username,
+
+            "content": message.content,
+
+            "time": message.created_at.strftime(
+                "%d %b %H:%M"
+            ),
+
+            "profile_picture": (
+                message.user.profile.profile_picture.url
+                if message.user.profile.profile_picture
+                else None
+            )
+
+        })
+
+    return JsonResponse(
+        {
+            "messages": data
+        }
+    )
 
 @login_required
 def operations(request):

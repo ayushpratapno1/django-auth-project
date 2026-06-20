@@ -37,7 +37,7 @@ Communication Center
 
 </div>
 
-<div class="chat-messages">
+<div class="chat-messages" id="chat-messages">
 
     {% for message in messages %}
 
@@ -128,5 +128,90 @@ Communication Center
 </form>
 
 </div>
+
+<script>
+
+async function loadMessages() {
+
+    try {
+
+        const response = await fetch(
+            "/chat/messages/"
+        );
+
+        const data = await response.json();
+
+        const container = document.getElementById(
+            "chat-messages"
+        );
+
+        container.innerHTML = "";
+
+        data.messages.forEach(message => {
+
+            const avatar = message.profile_picture
+                ? `
+                    <img
+                        src="${message.profile_picture}"
+                        class="chat-avatar"
+                    >
+                  `
+                : `
+                    <div class="chat-avatar-placeholder">
+                        ${message.user.charAt(0).toUpperCase()}
+                    </div>
+                  `;
+
+            container.innerHTML += `
+                <div class="message-card">
+
+                    <div class="message-top">
+
+                        <div class="sender">
+
+                            ${avatar}
+
+                            <div>
+
+                                <h6 class="mb-1">
+                                    ${message.user}
+                                </h6>
+
+                                <span class="member-badge">
+                                    Active Member
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <small class="message-time">
+                            ${message.time}
+                        </small>
+
+                    </div>
+
+                    <div class="message-content">
+                        ${message.content}
+                    </div>
+
+                </div>
+            `;
+        });
+
+    } catch(error) {
+
+        console.log(error);
+
+    }
+
+}
+
+setInterval(
+    loadMessages,
+    2000
+);
+
+</script>
 
 {% endblock %}
