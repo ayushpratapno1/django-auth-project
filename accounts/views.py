@@ -7,7 +7,7 @@ from .forms import SignUpForm, ProfileForm, MissionForm
 from .models import Profile, Message, Mission
 from django.contrib.auth.models import User
 from django.http import HttpResponseForbidden, JsonResponse
-
+from django.views.decorators.http import require_POST
 
 # Create your views here.
 
@@ -181,21 +181,6 @@ def members(request):
 @login_required
 def chat(request):
 
-    if request.method == "POST":
-
-        content = request.POST.get(
-            "content"
-        )
-
-        if content:
-
-            Message.objects.create(
-                user=request.user,
-                content=content
-            )
-
-            return redirect("chat")
-
     messages = Message.objects.filter(
         is_deleted=False
     ).select_related(
@@ -207,15 +192,15 @@ def chat(request):
     messages = reversed(messages)
 
     return render(
-    request,
-    "chat.html",
-    {
-        "messages": messages,
-        "message_count": Message.objects.filter(
-            is_deleted=False
-        ).count()
-    }
-)
+        request,
+        "chat.html",
+        {
+            "messages": messages,
+            "message_count": Message.objects.filter(
+                is_deleted=False
+            ).count()
+        }
+    )
 
 @login_required
 def chat_messages(request):
@@ -255,6 +240,27 @@ def chat_messages(request):
     return JsonResponse(
         {
             "messages": data
+        }
+    )
+
+@login_required
+@require_POST
+def send_message(request):
+
+    content = request.POST.get(
+        "content"
+    )
+
+    if content:
+
+        Message.objects.create(
+            user=request.user,
+            content=content
+        )
+
+    return JsonResponse(
+        {
+            "success": True
         }
     )
 

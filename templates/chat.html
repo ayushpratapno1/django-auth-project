@@ -107,11 +107,12 @@ Communication Center
 
 </div>
 
-<form method="POST" class="chat-form">
+<form id="chat-form" class="chat-form">
 
     {% csrf_token %}
 
     <textarea
+        id="message-input"
         name="content"
         placeholder="Send secure communication..."
         required
@@ -210,6 +211,62 @@ async function loadMessages() {
 setInterval(
     loadMessages,
     2000
+);
+const form = document.getElementById(
+    "chat-form"
+);
+
+form.addEventListener(
+    "submit",
+    async function(e){
+
+        e.preventDefault();
+
+        const input = document.getElementById(
+            "message-input"
+        );
+
+        const content = input.value.trim();
+
+        if(!content){
+            return;
+        }
+
+        const formData = new FormData();
+
+        formData.append(
+            "content",
+            content
+        );
+
+        formData.append(
+            "csrfmiddlewaretoken",
+            document.querySelector(
+                "[name=csrfmiddlewaretoken]"
+            ).value
+        );
+
+        try{
+
+            await fetch(
+                "/chat/send/",
+                {
+                    method:"POST",
+                    body:formData
+                }
+            );
+
+            input.value = "";
+
+            loadMessages();
+
+        }catch(error){
+
+            console.log(error);
+
+        }
+
+    }
 );
 
 </script>
