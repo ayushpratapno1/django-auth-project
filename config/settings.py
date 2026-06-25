@@ -178,7 +178,11 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
 }
 
-if not DEBUG:
+import sys
+
+TESTING = "test" in sys.argv
+
+if not DEBUG and not TESTING:
 
     SECURE_SSL_REDIRECT = True
 
